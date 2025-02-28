@@ -6,7 +6,6 @@ class Product:
     price: float
     quantity: int
 
-
     def __init__(self, name, description, price, quantity):
         """Инициализации экземпляра класса Product. Задаем значения атрибутам экземпляра."""
 
