@@ -15,7 +15,7 @@ class Product:
         self.quantity = quantity
 
     @classmethod
-    def new_product(cls, dict_of_product, list_of_products: list):
+    def new_product(cls, dict_of_product, list_of_products: list = []):
         """Метод для создания новых объектов класса Product. На вход необходимо подать словарь с параметрами товаров:
         name, description, price, quantity, а также текущий список товаров (для избежания дублирования позиций)"""
 
