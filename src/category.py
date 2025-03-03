@@ -22,8 +22,11 @@ class Category:
     def add_product(self, new_product: Product):
         """Метод для записи новых объектов класса Product в атрибут Category.products"""
 
-        self.__products.append(new_product)
-        Category.product_count += 1
+        if isinstance(new_product, Product):
+            self.__products.append(new_product)
+            Category.product_count += 1
+        else:
+            raise TypeError
 
     @property
     def products(self):

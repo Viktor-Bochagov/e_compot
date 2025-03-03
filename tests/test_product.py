@@ -16,8 +16,10 @@ def test_new_product(product, product_in_dict, first_list_products, second_list_
     assert product.new_product(product_in_dict, second_list_products).price == 9999999.99
 
 
-def test_price(product):
+def test_price(capsys, product):
     assert product.price == 125.50
     product.price = 255
     assert product.price == 125.5
     product.price = -155
+    message = capsys.readouterr()
+    assert message.out.strip().split("\n")[-1] == "Цена не должна быть нулевая или отрицательная"
