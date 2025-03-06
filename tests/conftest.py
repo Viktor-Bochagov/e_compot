@@ -2,49 +2,45 @@ import pytest
 
 from src.category import Category
 from src.product import Product
+from src.product_iterator import ProductIterator
 
 
 @pytest.fixture
-def first_category():
-    return Category("test", "testing category", [
-        Product("something", "useful tool for testing", 125.50, 666),
-        Product("anything", "everything you desire", 9999999.99, 1)])
+def product_iphone():
+    return Product("iPhone 15 Pro Max", "1Tb", 200000, 20)
+
+@pytest.fixture
+def product_huawei():
+    return Product("Huawei 7S", "512Gb", 30000, 14)
+
+@pytest.fixture
+def category_phone(product_huawei, product_iphone):
+    return Category("Смартфоны", "Умные телефоны", [product_iphone, product_huawei])
+
+@pytest.fixture
+def new_product_valid_1():
+    return {
+        "name": "Samsung Galaxy S23 Ultra",
+        "description": "256GB, Серый цвет, 200MP камера",
+        "price": 180000.0,
+        "quantity": 5,
+    }
+
+@pytest.fixture
+def new_product_valid_2():
+    return {"name": "iPhone 15", "description": "256GB, Серый цвет", "price": 210000, "quantity": 3}
 
 
 @pytest.fixture
-def second_category():
-    return Category("examination", "category for examination", [
-        Product("everything", "everything everywhere and at once", 69.77, 13),
-        Product("nothing", "respectfully accepting donations", 100, 34435353)])
+def new_product_valid_3():
+    return {
+        "name": "Samsung Galaxy S23 Ultra",
+        "description": "256GB, Серый цвет, 200MP камера",
+        "price": 180000.0,
+        "quantity": 3,
+    }
 
 
 @pytest.fixture
-def third_category():
-    return Category("some category", "category with something", [
-        Product("everything", "everything everywhere and at once", 69.77, 13),
-        Product("nothing", "respectfully accepting donations", 100, 34435353)])
-
-
-@pytest.fixture
-def product():
-    return Product("something", "useful tool for testing", 125.50, 666)
-
-
-@pytest.fixture
-def product_in_dict():
-    return {"name": "everything", "description": "everything everywhere and at once", "price": 69.77, "quantity": 13}
-
-
-@pytest.fixture
-def first_list_products():
-    return [Product("anything", "everything you desire", 9999999.99, 1)]
-
-
-@pytest.fixture
-def second_list_products():
-    return [Product("everything", "everything you desire", 9999999.99, 1)]
-
-
-@pytest.fixture
-def third_list_products():
-    return [Product("everything", "everything you desire", 10.50, 1)]
+def product_iterator(category_phone):
+    return ProductIterator(category_phone)
