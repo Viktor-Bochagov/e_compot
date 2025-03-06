@@ -14,6 +14,14 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+    def __str__(self):
+        """Выводит строковое отображение в заданном формате"""
+        return f'{self.name}, {self.__price} руб. Остаток: {self.quantity} шт.'
+
+    def __add__(self, other):
+        """Складывает стоимость товаров определенной категории на складе"""
+        return (self.quantity * self.__price) + (other.quantity * other.__price)
+
     @classmethod
     def new_product(cls, dict_of_product, list_of_products: list = []):
         """Метод для создания новых объектов класса Product. На вход необходимо подать словарь с параметрами товаров:
