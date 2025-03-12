@@ -1,5 +1,7 @@
 from unittest.mock import patch
 
+import pytest
+
 from src.product import Product
 
 
@@ -52,5 +54,25 @@ def test_price_update_invalid(product_iphone):
 def test_product_str(product_iphone):
     assert str(product_iphone) == "iPhone 15 Pro Max, 200000 руб. Остаток: 20 шт."
 
+
 def test_product_add(product_iphone, product_huawei):
     assert product_iphone + product_huawei == 4420000
+
+
+def test_products_add(smartphone, smartphone_2):
+    assert smartphone + smartphone_2 == 1334000.0
+
+
+def test_products_add_invalid(smartphone, lawngrass):
+    with pytest.raises(TypeError):
+        assert smartphone + lawngrass
+
+
+def test_products_add_invalid_else(smartphone_2, lawngrass_2):
+    with pytest.raises(TypeError):
+        assert smartphone_2 + lawngrass_2
+
+
+def test_products_add_invalid_else_2(smartphone):
+    with pytest.raises(TypeError):
+        assert smartphone + 3
