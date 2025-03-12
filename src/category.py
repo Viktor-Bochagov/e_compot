@@ -25,11 +25,11 @@ class Category:
             full_count += product.quantity
         return f'{self.name}, количество продуктов: {full_count} шт.'
 
-    def add_product(self, new_product: Product):
+    def add_product(self, product):
         """Метод для записи новых объектов класса Product в атрибут Category.products"""
 
-        if isinstance(new_product, Product):
-            self.__products.append(new_product)
+        if isinstance(product, Product):
+            self.__products.append(product)
             Category.product_count += 1
         else:
             raise TypeError
