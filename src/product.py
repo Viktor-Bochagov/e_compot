@@ -47,21 +47,16 @@ class Product:
             self.__price = new_price
 
     @classmethod
-    def new_product(cls, dict_of_product, list_of_products):
+    def new_product(cls, dict_of_product, list_of_products: list = None):
         """Метод для создания новых объектов класса Product. На вход необходимо подать словарь с параметрами товаров:
         name, description, price, quantity, а также текущий список товаров (для избежания дублирования позиций)"""
 
-        name = dict_of_product.get("name")
-        description = dict_of_product.get("description")
-        price = dict_of_product.get("price")
-        quantity = dict_of_product.get("quantity")
-
+        if list_of_products is None:
+            list_of_products = []
         for product in list_of_products:
-            if product.name == name:
-                product.price = max(price, product.price)
-                product.quantity += quantity
+            if dict_of_product['name'] == product.name:
+                product.quantity += dict_of_product['quantity']
+                if product.price < dict_of_product['price']:
+                    product.price = dict_of_product['price']
                 return product
-
-        dict_product = cls(name, description, price, quantity)
-        list_of_products.append(dict_of_product)
-        return dict_product
+        return cls(**dict_of_product)
