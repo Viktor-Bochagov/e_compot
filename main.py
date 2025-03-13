@@ -1,5 +1,6 @@
 from src.category import Category
 from src.lawngrass_category import LawnGrass
+from src.product import Product
 from src.smartphone_category import Smartphone
 
 
@@ -83,3 +84,41 @@ if __name__ == '__main__':
         print("Возникла ошибка TypeError при добавлении не продукта")
     else:
         print("Не возникла ошибка TypeError при добавлении не продукта")
+
+product_data = {
+    'name': 'Имя продукта',
+    'description': 'Описание продукта',
+    'price': 1,
+    'quantity': 2
+}
+
+grass_data = {
+    'name': 'Название газона',
+    'description': 'Описание газона',
+    'price': 1,
+    'quantity': 2,
+    'country': 'Великобритания',
+    'germination_period': '1yrs',
+    'color': 'Салатовый'
+}
+
+smartphone_data = {
+    'name': 'Ноккиа ноккиа',
+    'description': 'Ломает стены',
+    'price': 999999,
+    'quantity': 1,
+    "efficiency": 123456,
+    "model": "3310",
+    "memory": "1Mb",
+    "color": "silver"
+}
+
+# создаём экземпляр каждого класса из словаря с помощью класс-метода
+my_product = Product.new_product(product_data)
+my_grass = LawnGrass.new_product(grass_data)
+my_phone = Smartphone.new_product(smartphone_data)
+
+# ошибок быть не должно и следующие три принта должны сработать
+print(my_product)
+print(my_grass)
+print(my_phone)
