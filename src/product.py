@@ -1,4 +1,8 @@
-class Product:
+from src.base_product import BaseProduct
+from src.print_mixin import PrintMixin
+
+
+class Product(BaseProduct, PrintMixin):
     """Класс для описания товаров, цены и имеющееся в наличии количество"""
 
     name: str
@@ -13,6 +17,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
 
     def __str__(self):
         """Выводит строковое отображение в заданном формате"""
@@ -24,20 +29,6 @@ class Product:
             return (self.quantity * self.__price) + (other.quantity * other.__price)
 
         raise TypeError
-
-    @classmethod
-    def new_product(cls, dict_of_product, list_of_products: list = []):
-        """Метод для создания новых объектов класса Product. На вход необходимо подать словарь с параметрами товаров:
-        name, description, price, quantity, а также текущий список товаров (для избежания дублирования позиций)"""
-
-        for product in list_of_products:
-            if dict_of_product['name'] == product.name:
-                product.quantity += dict_of_product['quantity']
-                if product.price < dict_of_product['price']:
-                    product.price = dict_of_product['price']
-                return product
-        return cls(dict_of_product['name'], dict_of_product['description'], dict_of_product['price'],
-                   dict_of_product['quantity'])
 
     @property
     def price(self):
@@ -59,3 +50,18 @@ class Product:
                 print("Цена не изменилась")
                 return
             self.__price = new_price
+
+    @classmethod
+    def new_product(cls, dict_of_product, list_of_products: list = None):
+        """Метод для создания новых объектов класса Product. На вход необходимо подать словарь с параметрами товаров:
+        name, description, price, quantity, а также текущий список товаров (для избежания дублирования позиций)"""
+
+        if list_of_products is None:
+            list_of_products = []
+        for product in list_of_products:
+            if dict_of_product['name'] == product.name:
+                product.quantity += dict_of_product['quantity']
+                if product.price < dict_of_product['price']:
+                    product.price = dict_of_product['price']
+                return product
+        return cls(**dict_of_product)
