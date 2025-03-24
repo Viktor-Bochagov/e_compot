@@ -59,7 +59,6 @@ class Category:
     def products_in_list(self):
         return self.__products
 
-
     def middle_price(self):
         try:
             return round(sum([product.price for product in self.__products]) / len(self.__products))
