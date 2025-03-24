@@ -72,3 +72,8 @@ def lawngrass():
 @pytest.fixture
 def lawngrass_2():
     return LawnGrass("Газонная трава 2", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
+
+
+@pytest.fixture
+def category_zero_products(product_huawei, product_iphone):
+    return Category("Смартфоны", "Умные телефоны", [])
