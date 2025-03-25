@@ -1,3 +1,4 @@
+from src.exceptions import ZeroQuantityError
 from src.product import Product
 
 
@@ -29,8 +30,21 @@ class Category:
         """Метод для записи новых объектов класса Product в атрибут Category.products"""
 
         if isinstance(product, Product):
-            self.__products.append(product)
-            Category.product_count += 1
+            try:
+                if product.quantity == 0:
+                    raise ZeroQuantityError('Невозможно добавить товар с нулевым количеством')
+
+            except ZeroQuantityError as er:
+                print(str(er))
+
+            else:
+                self.__products.append(product)
+                Category.product_count += 1
+                print('Товар добавлен успешно')
+
+            finally:
+                print('Обработка добавления товара завершена')
+
         else:
             raise TypeError
 
@@ -44,3 +58,10 @@ class Category:
     @property
     def products_in_list(self):
         return self.__products
+
+    def middle_price(self):
+        try:
+            return round(sum([product.price for product in self.__products]) / len(self.__products))
+
+        except ZeroDivisionError:
+            return 0
